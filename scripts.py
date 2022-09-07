@@ -45,6 +45,6 @@ def create_commendation(schoolkid_name, subj_title):
     except ObjectDoesNotExist:
         print("Не нашли такого ученика - проверьте имя")
         return
-    lesson = Lesson.objects.filter(year_of_study=child.year_of_study, group_letter=child.group_letter, subject__title=subj_title)[0]
+    lesson = Lesson.objects.filter(year_of_study=child.year_of_study, group_letter=child.group_letter, subject__title=subj_title)[-1]
     Commendation.objects.create(text="Very Good", created=lesson.date, schoolkid=child, subject=lesson.subject,
                                 teacher=lesson.teacher)
