@@ -13,13 +13,10 @@ def fix_marks(schoolkid_name):
     except ObjectDoesNotExist:
         print("Не нашли такого ученика - проверьте имя")
         return
-    marks = Mark.objects.filter(schoolkid=child, points__lt=4)
-    for mark in marks:
-        if mark.points == 2:
-            mark.points = int(4)
-        else:
-            mark.points = int(5)
-        mark.save()
+    # Меняем 2ки на 4ки
+    Mark.objects.filter(schoolkid=child, points=2).update(points=4)
+    # Меняем 3ки на 5ки
+    Mark.objects.filter(schoolkid=child, points=3).update(points=5)
 
 
 def remove_chastisements(schoolkid_name):
@@ -32,8 +29,7 @@ def remove_chastisements(schoolkid_name):
         print("Не нашли такого ученика - проверьте имя")
         return
     chastisements = Chastisement.objects.filter(schoolkid=child)
-    for elm in chastisements:
-        elm.delete()
+    chastisements.delete()
 
 
 def create_commendation(schoolkid_name, subj_title):
