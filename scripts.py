@@ -13,10 +13,10 @@ def fix_marks(schoolkid_name):
     except ObjectDoesNotExist:
         print("Не нашли такого ученика - проверьте имя")
         return
-    # Меняем 2ки на 4ки
-    Mark.objects.filter(schoolkid=child, points=2).update(points=4)
-    # Меняем 3ки на 5ки
-    Mark.objects.filter(schoolkid=child, points=3).update(points=5)
+    two_marks = Mark.objects.filter(schoolkid=child, points=2)
+    two_marks.update(points=4)
+    three_marks = Mark.objects.filter(schoolkid=child, points=3)
+    three_marks.update(points=5)
 
 
 def remove_chastisements(schoolkid_name):
